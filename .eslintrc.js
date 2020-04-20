@@ -1,9 +1,15 @@
 module.exports = {
-    "env": {
-        "node": true,
-        "es6": true,
-    },
-    "extends": "airbnb-base",
+    root: true,
+    parser: '@typescript-eslint/parser',
+    plugins: [
+      '@typescript-eslint',
+      'eslint-plugin-tsdoc',
+    ],
+    extends: [
+      'eslint:recommended',
+      'plugin:@typescript-eslint/eslint-recommended',
+      'plugin:@typescript-eslint/recommended',
+    ],
     "rules": {
         "indent": [
             "error",
@@ -23,6 +29,7 @@ module.exports = {
         ],
         "no-param-reassign": 1,
         "no-underscore-dangle": 0,
-        "linebreak-style": 0
+        "linebreak-style": 0,
+        "tsdoc/syntax": "warn"
     }
-};
+  };

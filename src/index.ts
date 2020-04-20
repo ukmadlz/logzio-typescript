@@ -13,26 +13,24 @@ export default class {
     public accounts: Accounts;
     public endpoints: Endpoints;
     constructor(public region: string, private token: string) {
-        // Configure Base URI
-        this.baseUri = `https://api${(region === 'us') ? '' : '-' + region}.logz.io/`
-        // Specific endpoints
-        this.users = new Users(this, 1);
-        this.accounts = new Accounts(this, 1);
-        this.endpoints = new Endpoints(this, 1);
+      // Configure Base URI
+      this.baseUri = `https://api${(region === 'us') ? '' : '-' + region}.logz.io/`;
+      // Specific endpoints
+      this.users = new Users(this, 1);
+      this.accounts = new Accounts(this, 1);
+      this.endpoints = new Endpoints(this, 1);
     }
     /**
      * Internal helper to predefine Axios requests
-     *
-     * @return  {AxiosInstance}  Axios object
      */
-    axios () {
-        return Axios.create({
-            baseURL: this.baseUri,
-            responseType: 'json',
-            headers: {
-                'content-type': 'application/json',
-                'X-API-TOKEN': this.token,
-            },
-        });
+    axios (): AxiosInstance {
+      return Axios.create({
+        baseURL: this.baseUri,
+        responseType: 'json',
+        headers: {
+          'content-type': 'application/json',
+          'X-API-TOKEN': this.token,
+        },
+      });
     }
 }
