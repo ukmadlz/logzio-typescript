@@ -1,6 +1,7 @@
 import Axios, { AxiosInstance } from 'axios';
 
-import Users from './users';
+import Accounts from './account-management';
+import Users from './users-management';
 
 /**
  * TypeScript SDK to interact with Logz.IO Admin API
@@ -8,9 +9,11 @@ import Users from './users';
 export default class {
     private baseUri: string;
     public users: Users;
+    public accounts: Accounts;
     constructor(public region: string, private token: string) {
         this.baseUri = `https://api${(region === 'us') ? '' : '-' + region}.logz.io/`
         this.users = new Users(this, 1);
+        this.accounts = new Accounts(this, 1);
     }
     /**
      * Internal helper to predefine Axios requests
