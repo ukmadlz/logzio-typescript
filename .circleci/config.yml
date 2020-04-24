@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
+  logzio-orb: logzio/logzio-orb@1.0.1
 jobs:
   build-and-test:
     executor:
@@ -11,6 +12,8 @@ jobs:
           steps:
             - run: npm install
             - run: npm test
+      - logzio-orb/submit:
+          dir-path: logs
 workflows:
     build-and-test:
       jobs:
