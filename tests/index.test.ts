@@ -28,7 +28,7 @@ test('Successfully configures axios', () => {
   expect(axios).toBeInstanceOf(Function);
   expect(axios.defaults.baseURL).toBe('https://api-wa.logz.io/');
 });
-test('Fail on invalid token', () => {
+test('Failed on invalid token', () => {
   const region  = 'us';
   const token = '';
   try {
