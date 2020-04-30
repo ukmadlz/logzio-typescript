@@ -4,10 +4,10 @@
   "description": "TypeScript SDK with Logz.IO Admin API",
   "main": "dist/index.js",
   "scripts": {
-    "lint": "eslint ./src --ext .js,.jsx,.ts,.tsx --output-file ./logs/eslint.log --format unix",
-    "lint:fix": "eslint ./src --ext .js,.jsx,.ts,.tsx  --fix",
-    "explodey": "exit 1;",
-    "test": "npm run lint"
+    "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx --output-file ./logs/eslint.log --format unix",
+    "lint:fix": "eslint ./ --ext .js,.jsx,.ts,.tsx --fix",
+    "unit": "jest --coverage",
+    "test": "npm run lint && npm run unit"
   },
   "repository": {
     "type": "git",
@@ -24,12 +24,20 @@
   },
   "homepage": "https://github.com/ukmadlz/logzio-typescript#readme",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-typescript": "^7.9.0",
+    "@types/jest": "^25.2.1",
+    "@types/node": "^13.13.4",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
+    "babel-jest": "^25.4.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-tsdoc": "^0.2.4",
+    "jest": "^25.4.0",
+    "ts-jest": "^25.4.0",
     "typescript": "^3.8.3"
   },
   "dependencies": {

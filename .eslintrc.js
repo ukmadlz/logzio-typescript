@@ -1,4 +1,7 @@
 module.exports = {
+    env: {
+        commonjs: true,
+    },
     root: true,
     parser: '@typescript-eslint/parser',
     plugins: [
@@ -10,6 +13,7 @@ module.exports = {
       'plugin:@typescript-eslint/eslint-recommended',
       'plugin:@typescript-eslint/recommended',
     ],
+    "ignorePatterns": ["node_modules/", "dist/"],
     "rules": {
         "indent": [
             "error",
