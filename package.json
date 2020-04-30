@@ -8,8 +8,8 @@
     "lint:ci": "npm run lint:log & npm run lint:junit",
     "lint:log": "eslint ./ --ext .js,.jsx,.ts,.tsx --output-file ./logs/eslint.log --format unix",
     "lint:junit": "eslint ./ --ext .js,.jsx,.ts,.tsx --format junit --output-file ~/reports/eslint.xml",
-    "lint:fix": "eslint ./ --ext .js,.jsx,.ts,.tsx --fix",
-    "unit": "jest --ci --runInBand --reporters=default --reporters=jest-junit --coverage",
+    "lint:fix": "npm run lint --fix",
+    "unit": "jest --coverage",
     "test": "npm run lint && npm run unit"
   },
   "repository": {
@@ -41,6 +41,7 @@
     "eslint-plugin-tsdoc": "^0.2.4",
     "jest": "^25.4.0",
     "jest-junit": "^10.0.0",
+    "nock": "^12.0.3",
     "ts-jest": "^25.4.0",
     "typescript": "^3.8.3"
   },
