@@ -12,6 +12,9 @@ jobs:
           steps:
             - run: npm install
             - run: npm test
+            - store_artifacts:
+                path: /coverage/lcov-report
+                destination: coverage
       - logzio-orb/submit:
           dir-path: logs
 workflows:
