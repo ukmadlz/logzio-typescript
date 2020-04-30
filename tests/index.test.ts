@@ -1,5 +1,4 @@
 import LogzIO from '../src/index';
-import { AxiosPromise } from 'axios';
 import { v4 as uuid } from 'uuid';
 
 test('Succesfully instantiated for US region', () => {
