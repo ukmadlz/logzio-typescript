@@ -11,6 +11,7 @@ jobs:
       - node/with-cache:
           steps:
             - run: mkdir -p ~/reports
+            - run: mkdir -p ~/logs
             - run: npm install
             - run:
                 name: Run linter
@@ -19,7 +20,7 @@ jobs:
                 name: Run unit tests with JUnit as reporter
                 command: npm run unit
                 environment:
-                  JEST_JUNIT_OUTPUT_DIR: "reports/jest.xml"
+                  JEST_JUNIT_OUTPUT_DIR: "~/reports/jest.xml"
             - store_test_results:
                 path: ~/reports
             - store_artifacts:
@@ -28,7 +29,7 @@ jobs:
                 path:  ~/project/coverage/lcov-report
                 destination: coverage
       - logzio-orb/submit:
-          dir-path: logs
+          dir-path: ~/logs
 workflows:
     build-and-test:
       jobs:
