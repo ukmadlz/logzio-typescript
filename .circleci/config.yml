@@ -19,7 +19,7 @@ jobs:
                 name: Run unit tests with JUnit as reporter
                 command: npm run unit
                 environment:
-                  JEST_JUNIT_OUTPUT_DIR: "reports/jest-junit.xml"
+                  JEST_JUNIT_OUTPUT_DIR: "~/reports/jest-junit.xml"
             - store_test_results:
                 path: ~/reports
             - store_artifacts:
