@@ -1,20 +1,35 @@
 import LogzIO from './index';
 import { AxiosPromise } from 'axios';
 
+export interface IuserManagementListItem {
+  id: number;
+  username: string;
+  fullName: string;
+  accountID: number;
+  roles: Array<number>;
+  active: boolean;
+}
+
+export type IUserManagementListItems = Array<IuserManagementListItem>
+
 /**
  * The User Management API
  */
 export default class Users {
     private apiPath: string;
     constructor(private LogzIO: LogzIO, version?: number) {
-      this.apiPath = `v${version}/user-management`;
+      if(version && !Number(version)) throw Error('Provide a valid version number for the User Management API');
+      this.apiPath = `v${version || 1}/user-management`;
     }
+
     /**
      * List all current users
      */
-    public list (): AxiosPromise {
-      return this.LogzIO.axios().get(this.apiPath);
+    public async list (): Promise<IUserManagementListItems> {
+      return await this.LogzIO.axios().get(this.apiPath)
+        .then(response => response.data);
     }
+
     /**
      * Creates a new user within a Logz.IO Account
      *
@@ -37,8 +52,9 @@ export default class Users {
      *
      * @param id - The ID for the User
      */
-    public get (id: number): AxiosPromise {
-      return this.LogzIO.axios().get(`${this.apiPath}/${id}`);
+    public get (id: number): Promise<IuserManagementListItem> {
+      return this.LogzIO.axios().get(`${this.apiPath}/${id}`)
+        .then(response => response.data);
     }
 
     /**
@@ -63,8 +79,11 @@ export default class Users {
      *
      * @param id - The ID for the User
      */
-    public delete (id: number): AxiosPromise {
-      return this.LogzIO.axios().delete(`${this.apiPath}/${id}`);
+    public delete (id: number): Promise<boolean> {
+      return this.LogzIO.axios().delete(`${this.apiPath}/${id}`)
+        .then(() => {
+          return true;
+        });
     }
 
     /**
@@ -72,8 +91,11 @@ export default class Users {
      *
      * @param id - The ID for the User
      */
-    public suspend (id: number): AxiosPromise {
-      return this.LogzIO.axios().post(`${this.apiPath}/suspend/${id}`);
+    public suspend (id: number): Promise<boolean> {
+      return this.LogzIO.axios().post(`${this.apiPath}/suspend/${id}`)
+        .then(() => {
+          return true;
+        });
     }
 
     /**
@@ -81,7 +103,10 @@ export default class Users {
      *
      * @param id - The ID for the User
      */
-    public unsuspend (id: number): AxiosPromise {
-      return this.LogzIO.axios().post(`${this.apiPath}/unsuspend/${id}`);
+    public unsuspend (id: number): Promise<boolean> {
+      return this.LogzIO.axios().post(`${this.apiPath}/unsuspend/${id}`)
+        .then(() => {
+          return true;
+        });
     }
 }
