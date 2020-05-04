@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint ./ --ext .js,.jsx,.ts,.tsx",
     "lint:ci": "npm run lint:log & npm run lint:junit",
-    "lint:log": "eslint ./ --ext .js,.jsx,.ts,.tsx --output-file ./logs/eslint.log --format unix",
+    "lint:log": "eslint ./ --ext .js,.jsx,.ts,.tsx --output-file ~/logs/eslint.log --format unix",
     "lint:junit": "eslint ./ --ext .js,.jsx,.ts,.tsx --format junit --output-file ~/reports/eslint.xml",
     "lint:fix": "npm run lint --fix",
     "unit": "jest --coverage",
