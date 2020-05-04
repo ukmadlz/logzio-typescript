@@ -18,7 +18,7 @@ jobs:
                 command: npm run lint:ci
             - run:
                 name: Run unit tests with JUnit as reporter
-                command: npm run unit
+                command: npm run unit:ci
                 environment:
                   JEST_JUNIT_OUTPUT_DIR: "~/reports/jest.xml"
             - store_test_results:
