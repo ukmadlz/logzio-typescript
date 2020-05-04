@@ -1,7 +1,7 @@
 import LogzIO from './index';
 import { AxiosPromise } from 'axios';
 
-class Custom {
+export class Custom {
   constructor (private Endpoints: Endpoints) {
 
   }
@@ -58,7 +58,7 @@ export default class Endpoints {
     private apiPath: string;
     public custom: Custom;
     constructor(private LogzIO: LogzIO, version?: number) {
-      this.apiPath = `v${version}/endpoints`;
+      this.apiPath = `v${version || 1}/endpoints`;
       this.custom = new Custom(this);
     }
 

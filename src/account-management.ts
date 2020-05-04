@@ -7,7 +7,7 @@ import { AxiosPromise } from 'axios';
 export default class Accounts {
     private apiPath: string;
     constructor(private LogzIO: LogzIO, version?: number) {
-      this.apiPath = `v${version}/account-management`;
+      this.apiPath = `v${version || 1}/account-management`;
     }
 
     /**
