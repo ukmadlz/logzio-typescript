@@ -75,6 +75,46 @@ test('Successfully get list of users', async () => {
   const user1 = users.find((user) => user.fullName === user1uuid);
   expect(user1).toMatchObject(user1Object);
 });
+test('Successfully create a new user', async () => {
+  const userId = Math.round((Math.random() * 1000));
+  const userName = uuid().replace(/[-]+/, '');
+  const logzio = {
+    axios: (): any => {
+      return {
+        post: (): any => {
+          return Promise.resolve({
+            status: 200,
+            statusText: 'OK',
+            headers: {
+            },
+            config: {},
+            data:{
+              id: userId,
+            }
+          });
+        }
+      };
+    }
+  } as LogzIO;
+  const userManagement = new Users(logzio);
+  try {
+    const user = await userManagement.create(`${userName}@logz.io`, userName, 2);
+    expect(user.id).toBe(userId);
+  } catch(e) {
+    console.error(e);
+  }
+});
+test('Fails to create a user when given an invalid role', async () => {
+  const userName = uuid().replace(/[-]+/, '');
+  const logzio = {} as LogzIO;
+  const userManagement = new Users(logzio);
+  try {
+    await userManagement.create(`${userName}@logz.io`, userName, 0);
+  } catch(e) {
+    expect(e).toBeInstanceOf(Error);
+    expect(e.message).toBe('Please provide a valid role.');
+  }
+});
 test('Successfully get a specific users details', async () => {
   const userId = Math.round((Math.random() * 1000));
   const userName = uuid();
@@ -105,6 +145,43 @@ test('Successfully get a specific users details', async () => {
   const userManagement = new Users(logzio);
   const user = await userManagement.get(userId);
   expect(user.id).toBe(userId);
+});
+test('Successfully update a specific user', async () => {
+  const userId = Math.round((Math.random() * 1000));
+  const userName = uuid();
+  const logzio = {
+    axios: (): any => {
+      return {
+        put: (): any => {
+          return Promise.resolve({
+            status: 200,
+            statusText: 'OK',
+            headers: {
+            },
+            config: {},
+            data:{
+              id: userId,
+            }
+          });
+        }
+      };
+    }
+  } as LogzIO;
+  const userManagement = new Users(logzio);
+  const user = await userManagement.update(userId, `${userName}@logz.io`, userName, 3);
+  expect(user.id).toBe(userId);
+});
+test('Fails to update a user when given an invalid role', async () => {
+  const userId = Math.round((Math.random() * 1000));
+  const userName = uuid().replace(/[-]+/, '');
+  const logzio = {} as LogzIO;
+  const userManagement = new Users(logzio);
+  try {
+    await userManagement.update(userId, `${userName}@logz.io`, userName, 0);
+  } catch(e) {
+    expect(e).toBeInstanceOf(Error);
+    expect(e.message).toBe('Please provide a valid role.');
+  }
 });
 test('Successfully delete a specific user', async() => {
   const userId = Math.round((Math.random() * 1000));

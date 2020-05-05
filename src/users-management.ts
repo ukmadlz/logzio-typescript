@@ -1,5 +1,4 @@
 import LogzIO from './index';
-import { AxiosPromise } from 'axios';
 
 export interface IuserManagementListItem {
   id: number;
@@ -12,11 +11,19 @@ export interface IuserManagementListItem {
 
 export type IUserManagementListItems = Array<IuserManagementListItem>
 
+export interface IuserId {
+  id: number;
+}
+
 /**
  * The User Management API
  */
 export default class Users {
     private apiPath: string;
+    private allowedRoles = [
+      2, // User
+      3, // Admin
+    ];
     constructor(private LogzIO: LogzIO, version?: number) {
       if(version && !Number(version)) throw Error('Provide a valid version number for the User Management API');
       this.apiPath = `v${version || 1}/user-management`;
@@ -38,13 +45,15 @@ export default class Users {
      * @param roles - The numeric IDs for the users roles
      * @param accountID - The Logz.IO account to associate the user with
      */
-    public create (username: string, fullName: string, roles: number, accountID?: Array<number>): AxiosPromise {
+    public create (username: string, fullName: string, roles: number, accountID?: Array<number>): Promise<IuserId> {
+      if(!this.allowedRoles.includes(roles)) throw Error('Please provide a valid role.');
       return this.LogzIO.axios().post(this.apiPath, {
         username,
         fullName,
-        roles,
+        roles: [roles],
         accountID,
-      });
+      })
+        .then(response => response.data);
     }
 
     /**
@@ -65,13 +74,15 @@ export default class Users {
      * @param roles - The numeric IDs for the users roles
      * @param accountID - The Logz.IO account to associate the user with
      */
-    public update (id: number, username: string, fullName: string, roles: number, accountID?: Array<number>): AxiosPromise {
+    public update (id: number, username: string, fullName: string, roles: number, accountID?: Array<number>): Promise<IuserId> {
+      if(!this.allowedRoles.includes(roles)) throw Error('Please provide a valid role.');
       return this.LogzIO.axios().put(`${this.apiPath}/${id}`, {
         username,
         fullName,
         roles,
         accountID,
-      });
+      })
+        .then(response => response.data);
     }
 
     /**
