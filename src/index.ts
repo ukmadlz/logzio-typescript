@@ -13,7 +13,11 @@ export default class {
     public accounts: Accounts;
     public endpoints: Endpoints;
     constructor(public region: string, private token: string) {
+      // Include a token
+      if(!token) throw Error('Provide an API Token');
       // Configure Base URI
+      const allowedRegions = ['us', 'au', 'ca', 'eu', 'nl', 'wa'];
+      if(!allowedRegions.includes(region)) throw Error('Provide a valid region');
       this.baseUri = `https://api${(region === 'us') ? '' : '-' + region}.logz.io/`;
       // Specific endpoints
       this.users = new Users(this, 1);

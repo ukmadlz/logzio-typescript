@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   node: circleci/node@1.1.6
+  logzio-orb: logzio/logzio-orb@1.0.1
 jobs:
   build-and-test:
     executor:
@@ -9,8 +10,26 @@ jobs:
       - checkout
       - node/with-cache:
           steps:
+            - run: mkdir -p ~/reports
+            - run: mkdir -p ~/logs
             - run: npm install
-            - run: npm test
+            - run:
+                name: Run linter
+                command: npm run lint:ci
+            - run:
+                name: Run unit tests with JUnit as reporter
+                command: npm run unit:ci
+                environment:
+                  JEST_JUNIT_OUTPUT_DIR: ~/reports
+            - store_test_results:
+                path: ~/reports
+            - store_artifacts:
+                path: ~/reports
+            - store_artifacts:
+                path:  ~/project/coverage/lcov-report
+                destination: coverage
+      - logzio-orb/submit:
+          dir-path: ~/logs
 workflows:
     build-and-test:
       jobs:
