@@ -14,14 +14,16 @@ export default class Accounts {
      * Returns the accountName of the API Token
      */
     public whoami (): AxiosPromise {
-      return this.LogzIO.axios().get(`${this.apiPath}/whoami`);
+      return this.LogzIO.axios().get(`${this.apiPath}/whoami`)
+        .then(response => response.data);
     }
 
     /**
      * List of sub-accounts associated with the Logz.IO account
      */
     public list (): AxiosPromise {
-      return this.LogzIO.axios().get(`${this.apiPath}/time-based-accounts`);
+      return this.LogzIO.axios().get(`${this.apiPath}/time-based-accounts`)
+        .then(response => response.data);
     }
 
     /**
@@ -48,6 +50,7 @@ export default class Accounts {
         accessible,
         docSizeSetting,
         utilizationSettings,
-      });
+      })
+        .then(response => response.data);
     }
 }
