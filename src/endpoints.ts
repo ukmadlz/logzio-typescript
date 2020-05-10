@@ -24,7 +24,8 @@ export class Custom {
       method,
       headers,
       bodyTemplate,
-    });
+    })
+      .then(response => response.data);
   }
 
 
@@ -47,7 +48,8 @@ export class Custom {
       method,
       headers,
       bodyTemplate,
-    });
+    })
+      .then(response => response.data);
   }
 }
 
@@ -62,10 +64,16 @@ export default class Endpoints {
       this.custom = new Custom(this);
     }
 
+    /**
+     * Returns an instance of LogzIO class for DI purposes
+     */
     public getLogzIO(): LogzIO {
       return this.LogzIO;
     }
 
+    /**
+     * Return the API path for DI purposes
+     */
     public getApiPath (): string {
       return this.apiPath;
     }
@@ -74,7 +82,8 @@ export default class Endpoints {
      * List all existing Notification Endpoints
      */
     public list (): AxiosPromise {
-      return this.LogzIO.axios().get(this.apiPath);
+      return this.LogzIO.axios().get(this.apiPath)
+        .then(response => response.data);
     }
 
     /**
@@ -83,15 +92,17 @@ export default class Endpoints {
      * @param id - The ID of the Notification Endpoint
      */
     public get (id: number): AxiosPromise {
-      return this.LogzIO.axios().get(`${this.apiPath}/${id}`);
+      return this.LogzIO.axios().get(`${this.apiPath}/${id}`)
+        .then(response => response.data);
     }
 
     /**
      * Deletes the details of the requested Notification Endpoint
-     * 
+     *
      * @param id - The ID of the Notification Endpoint
      */
     public delete (id: number): AxiosPromise {
-      return this.LogzIO.axios().delete(`${this.apiPath}/${id}`);
+      return this.LogzIO.axios().delete(`${this.apiPath}/${id}`)
+        .then(response => response.data);
     }
 }

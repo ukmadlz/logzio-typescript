@@ -3,7 +3,6 @@ import LogzIO from '../src/index';
 import Users from '../src/users-management';
 import { v4 as uuid } from 'uuid';
 
-const token = '4fdce24e-e468-4fe0-9106-2086b17487f2';
 test('Succesfully instantiated class within LogzIO Class', () => {
   const region = 'us';
   const token = uuid();

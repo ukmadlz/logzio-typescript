@@ -47,6 +47,7 @@ export default class Alerts {
       groupByAggregationField,
       alertNotificationEndpoints,
       severityThresholdTiers
-    });
+    })
+      .then(response => response.data);
   }
 }
