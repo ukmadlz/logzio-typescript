@@ -3,6 +3,7 @@ import Axios, { AxiosInstance } from 'axios';
 import Accounts from './account-management';
 import Endpoints from './endpoints';
 import Users from './users-management';
+import Search from './search';
 
 /**
  * TypeScript SDK to interact with Logz.IO Admin API
@@ -12,6 +13,7 @@ export default class {
     public users: Users;
     public accounts: Accounts;
     public endpoints: Endpoints;
+    public search: Search;
     constructor(public region: string, private token: string) {
       // Include a token
       if(!token) throw Error('Provide an API Token');
@@ -23,6 +25,7 @@ export default class {
       this.users = new Users(this, 1);
       this.accounts = new Accounts(this, 1);
       this.endpoints = new Endpoints(this, 1);
+      this.search = new Search(this, 1);
     }
     /**
      * Internal helper to predefine Axios requests
