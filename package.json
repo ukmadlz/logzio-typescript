@@ -12,7 +12,8 @@
     "unit": "jest --coverage",
     "unit:ci": "npm run unit --ci --reporters=default --reporters=jest-junit",
     "test": "npm run lint && npm run unit",
-    "postinstall": "npx tsc"
+    "postinstall": "npx tsc",
+    "prepublish": "tsc"
   },
   "repository": {
     "type": "git",
